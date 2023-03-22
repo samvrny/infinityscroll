@@ -19,23 +19,32 @@ async function fetchImages() {
     }
 }
 
+//helper function for setting element attributes
+function setAttributes(element, attributes) {
+    for(const key in attributes) {
+        element.setAttribute(key, attributes[key])
+    }
+}
+
 //print images to the screen
 function displayImages() {
-    console.log(imagesArray);
     imagesArray.forEach((image) => {
         const anchor = document.createElement('a');
-        anchor.setAttribute('href', image.links.html);
-        anchor.setAttribute('target', '_blank');
+        setAttributes(anchor, {
+            href: image.links.html,
+            target: '_blank'
+        });
 
         const img = document.createElement('img');
-        img.setAttribute('src', image.urls.regular);
-        img.setAttribute('alt', image.alt_description);
-        img.setAttribute('title', image.alt_description);
+        setAttributes(img, {
+            src: image.urls.regular,
+            alt: image.alt_description,
+            title: image.alt_description
+        });
 
-        // anchor.appendChild(img);
         scrollContainer.appendChild(anchor);
         anchor.appendChild(img);
     });
 }
 
-fetchImages();
+// fetchImages();
